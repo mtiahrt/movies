@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
-
+import MovieDetail from './MovieDetail';
 import MoviesList from './MoviesList';
 
 const App = () => (
@@ -20,12 +20,10 @@ const App = () => (
           </header>
           <Switch>
             <Route exact path="/" component={MoviesList}/>
-            <Route path="/:id" component={Test}/>
+            <Route path="/:id" component={MovieDetail}/>
           </Switch>          
         </div> 
       </Router>                
     );
-const Test = ({match}) =>(
-  <h1>{match.params.id}</h1>
-)
+
 export default App;
