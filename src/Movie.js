@@ -2,13 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
+import Overdrive from 'react-overdrive';
 
 const POSTER_PATH = 'http://image.tmdb.org/t/p/w154'
 
 //functional stateless component
 const Movie = ({movie}) => (//destructuring props
         <Link to={`/${movie.id}`}>
-            <Poster src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
+            <Overdrive id={movie.id}>
+                <Poster src={`${POSTER_PATH}${movie.poster_path}`} alt={movie.title} />
+            </Overdrive>           
         </Link>               
 );
 export default Movie;
