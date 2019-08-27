@@ -19,15 +19,33 @@ class MoviesList extends Component {
   }
   
   render() {
+    const handleTextChange = e => {  
+      const filteredMovies = this.state.movies.filter(item => {
+        return item.title.toLowerCase().substring(0, e.target.value.length) === e.target.value.toLowerCase()
+      });
+    this.setState({
+      movies: filteredMovies
+    })
+    }
+
     return (
+      <div>
+        <label style={FilterInputStyle}>
+          Filter Movies
+        </label>
+        <input type="text" name="movieFilter" onChange={handleTextChange} /> 
         <MovieGrid>
             {this.state.movies.map(movie => <Movie key ={movie.id} movie={movie} />)}     
-        </MovieGrid>        
+        </MovieGrid>  
+      </div>            
     );
   }
 }
 export default MoviesList;
-
+const FilterInputStyle = {
+  color: "white",
+  padding: "10px"
+}
 const MovieGrid = styled.div`
 display: grid;
 padding: 1rem;
