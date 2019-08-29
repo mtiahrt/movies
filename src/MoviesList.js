@@ -25,7 +25,7 @@ class MoviesList extends Component {
         <label style={FilterInputStyle}>
           Filter Movies
         </label>
-        <input type="text" name="movieFilter" onChange={(e) => this.setState({filterString: e.target.value.toLowerCase()})}/> 
+        <input type="text" name="movieFilter" onChange={e => this.setState({filterString: e.target.value.toLowerCase()})}/> 
         <MovieGrid>
             {this.state.movies.filter(item => item.title.toLowerCase().includes(this.state.filterString.toLowerCase())).map(movie => <Movie key ={movie.id} movie={movie} />)}     
         </MovieGrid>  
