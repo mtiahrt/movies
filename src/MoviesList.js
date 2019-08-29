@@ -2,16 +2,15 @@ import React, {Component} from 'react';
 import Movie from './Movie';
 import styled from 'styled-components';
 
-let fullMovieList;
 class MoviesList extends Component {
   state = {
-    movies: []
+    movies: [],
+    filterString:'',
   }
   async componentDidMount(){
     try{
-      const res = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=16116ab71bb30c2ece0730d8e2688eef&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1');
+      const res = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=16116ab71bb30c2ece0730d8e2688eef&primary_release_date.gte=2018-09-15&primary_release_date.lte=2019-10-22');
       const movies = await res.json();
-      fullMovieList = movies.results;
       this.setState({
         movies: movies.results
       })
@@ -21,22 +20,14 @@ class MoviesList extends Component {
   }
   
   render() {
-    const handleTextChange = e => {  
-      const filteredMovies = fullMovieList.filter(item => item.title.toLowerCase().substring(0, e.target.value.length) === e.target.value.toLowerCase());
-      
-    this.setState({
-      movies: filteredMovies
-    })
-    }
-
     return (
       <div>
         <label style={FilterInputStyle}>
           Filter Movies
         </label>
-        <input type="text" name="movieFilter" onChange={handleTextChange} /> 
+        <input type="text" name="movieFilter" onChange={(e) => this.setState({filterString: e.target.value.toLowerCase()})}/> 
         <MovieGrid>
-            {this.state.movies.map(movie => <Movie key ={movie.id} movie={movie} />)}     
+            {this.state.movies.filter(item => item.title.toLowerCase().includes(this.state.filterString.toLowerCase())).map(movie => <Movie key ={movie.id} movie={movie} />)}     
         </MovieGrid>  
       </div>            
     );
