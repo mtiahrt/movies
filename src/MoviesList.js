@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import Movie from './Movie';
 import styled from 'styled-components';
 
-class MoviesList extends Component {
+class MoviesList extends PureComponent {
   state = {
     movies: [],
     filterString:'',
@@ -25,9 +25,12 @@ class MoviesList extends Component {
         <label style={FilterInputStyle}>
           Filter Movies
         </label>
-        <input type="text" name="movieFilter" onChange={e => this.setState({filterString: e.target.value.toLowerCase()})}/> 
+        <input type="text" name="movieFilter" onChange={ e => this.setState({filterString: e.target.value.toLowerCase()})}/> 
         <MovieGrid>
-            {this.state.movies.filter(item => item.title.toLowerCase().includes(this.state.filterString.toLowerCase())).map(movie => <Movie key ={movie.id} movie={movie} />)}     
+            {this.state.movies.filter(item => 
+              item.title.toLowerCase().includes(this.state.filterString)
+              ).map(movie => 
+              <Movie key ={movie.id} movie={movie} />)}     
         </MovieGrid>  
       </div>            
     );
